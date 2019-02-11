@@ -1,6 +1,3 @@
 Flask
-markovify
 textgenrnn
-gunicorn
-json
-random
+markovify
