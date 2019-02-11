@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Alternative news network</title>
-    <link href="https://fonts.googleapis.com/css?family=Lora|Roboto+Slab" rel="stylesheet">
+    <title>Trump news generator</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Merriweather:700" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -13,83 +13,254 @@
         body {
             margin: 0;
             padding: 0;
-            overflow-y: scroll;
-            background: rgb(1,0,6);
-            background: linear-gradient(45deg, rgba(1,0,6,1) 0%, rgba(24,24,125,1) 68%, rgba(40,0,255,1) 100%);
-        }
-        #cardWrapper, #btnWrapper {
-            width: 100vw;
-            height: auto;
-            padding: 46px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        #btnWrapper {
-            padding-bottom: 0;
-        }
-        .card {
-            margin: 18px;
-            background: #fff;
-            width: 50vw;
-            min-width: 400px;
-            max-width: 650px;
-            height: auto;
-            padding: 34px 42px;
             overflow: hidden;
+            background: rgb(1,0,6);
+            height: 100vh;
+            min-height: 100vh;
+            width: 100vw;
+            background: #FF6C00;
+            position: relative;
+        }
+        .cardWrapper{
+            height: 80vh;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 0);
             -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
             -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
             box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+            padding: 4em 8em 0 8em;
+            background: #fff;
+            max-width: 960px;
+            overflow: hidden;
+        }
+        .textWrapper {
+            width: 100%;
+            height: calc(100% - 3em);
+            position: relative;
+            overflow-y: scroll; 
+        }
+        #contentWrapper {
+            position: absolute;
+            width: 100%;
+            height: auto;
+            transition: all .2s;
+        }
+        .Xlarge #contentWrapper {
+            top: 8%;
+        }
+        .Xlarge h1 {
+            font-size: 50px;
+        }
+        .Xlarge .cardWrapper {
+            padding: 8em 8em 0 8em;
+            width: 68vw;
+        }
+        .large #contentWrapper {
+            top: 10%;
+        }
+        .large h1 {
+            font-size: 42px;
+        } 
+        .large .cardWrapper {
+            padding: 8em 8em 0 8em;
+            width: 68vw;
+        }   
+        .medium #contentWrapper {
+            top: 6%;
+        }    
+        .medium h1 {
+            font-size: 38px;
+        }
+        .medium .cardWrapper {
+            padding: 4em 4em 0 4em;
+            width: 74vw;
+        }
+        .small #contentWrapper {
+            top: 30px;
+        }    
+        .small h1 {
+            font-size: 32px;
+        }
+        .small .cardWrapper {
+            padding: 2em 2em 0 2em;
+            width: 94vw;
+        }
+        .fade {
+            opacity:0;
+        }
+        .buttonWrapper {
+            width: 80vw;
+            max-width: 500;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .buttonWrapper>span {
+            margin: 0 12px;
+        }
+        #twitterBtn {
+            width: 40px;
+            height: 50px;
+            cursor: pointer;
             transition: .2s all;
         }
-        button {
-            font-size: 18px;
-            color: #fff;
-            background: transparent;
+        #twitterBtn>path{
+            fill: #260D02;
+        }
+        #twitterBtn:hover>path{
+            fill: #fff;
+        }
+        #whatBtn {
+            font-size: 14px;
             font-family: 'Roboto Slab', serif;
             cursor: pointer;
-            padding: 18px;
-            width: 50vw;
-            min-width: 400px;
-            max-width: 650px;
-            text-transform: uppercase;
-            border: 4px solid #fff;
+            outline: transparent;
+            background: transparent;
+            border: 0;
+            color: #260D02;
+            transition: .2s all;
+        }
+        #whatBtn:hover {
+            color: #fff;
         }
         h1 {
-            font-family: 'Lora', serif;
+            font-family: 'Merriweather', serif;
             text-transform: uppercase;
             margin-bottom: 28px;
         }
+        h2 {
+            font-family: 'Roboto Slab', serif;
+            text-transform: uppercase;
+            text-align: center;
+            width: 100%;
+            color: #0F0B0E;
+            border-bottom: 4px solid #0F0B0E; 
+            margin: 0;
+        }
         p {
             font-family: 'Roboto Slab', serif;
+            font-size: 16px;
+        }
+        #newText {
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            color: #fff;
+            font-size: 14px;
+            font-family: 'Roboto Slab', serif;
+            text-transform: uppercase;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        #newBtn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            width: 100px;
+            height: 100px;
+            transition: 0.2s all;
+            z-index: 100;
+        }
+        #newBtn > path {
+            fill: #e83a0c;
+            fill-opacity: 1;
+        } 
+        #newBtn:hover {
+            width: 160px;
+            height: 160px;
+        }
+        #newBtn:hover > path {
+            fill: #ff6c00;
+        }
+        .clicked {
+            width: 100vw !important;
+            height: 100vw !important;
+        }
+        .clicked > path {
+            fill: #ff6c00 !important;
+            fill-opacity: 0.2 !important;
         }
     </style>
 </head>
-<body onload="fetchCard()">
-    <div id="btnWrapper">
-        <button type="button" onclick="fetchCard()">GET NEWS FLASH!</button>
+<body onload="onload()">
+    <div class="buttonWrapper">  
+        <svg id="twitterBtn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" onclick="tweet()">
+            <path class="cls-2" d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23"/>
+        </svg>
+        <span>&middot;</span>
+        <a href="https://github.com/iris-qu/trump_tail/blob/master/README.md" target="_blank">
+            <button type="button" id="whatBtn">What is this?</button>
+        </a>
     </div>
-    <div id="cardWrapper">
+    <div class="cardWrapper">
+        <h2>NEWS FLASH</h2>
+        <div class="textWrapper">
+            <div id="contentWrapper"></div>
+        </div>
+        <p id="newText">GET NEW!</p>
+        <svg id="newBtn" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg" onclick="newClick()">
+            <path d="M0,0 Q0,10 10,10 L10,0 Z"/>
+        </svg>
     </div>
 </body>
 <script>
-    fetchCard = () => {
-        fetch('http://127.0.0.1:5000/post')
+    let tweetContent = '';
+    const onload = () => {
+        window.addEventListener("resize", onresize)
+        onresize()
+        fetchCard()
+    }
+    const onresize = () => {
+        const body = document.getElementsByTagName('body')[0]
+        body.className = ''
+        if ( window.innerWidth < 600 ) {
+            body.classList.add('small')
+        } else if ( window.innerWidth >= 600 && window.innerWidth < 896 ) {
+            body.classList.add('medium')
+        } else if ( window.innerWidth >= 896 && window.innerWidth < 1040 ) {
+            body.classList.add('large')
+        } else if ( window.innerWidth >= 1040 ) {
+            body.classList.add('Xlarge')
+        }
+    }
+    const newClick = () => {
+        const btn = document.getElementById('newBtn')
+        btn.classList.add('clicked')
+        fetchCard()
+        setTimeout(() => {
+            btn.classList.remove('clicked')
+        },200)
+    }
+    const fetchCard = () => {
+        fetch('/post')
             .then(response => {
-                return response.json();
+                return response.json()
             })
             .then(data => {
+                
+                tweetContent = `[NEWS FLASH] ${data.title.toUpperCase()} - ${data.p1} * fake news generated by ${window.location.hostname}* ` 
                 const htmlTemp = `
                     <h1>${data.title}</h1>
                     <p>${data.p1}</p>
                     <p>${data.p2}</p>
                     <p>${data.p3}</p>
                 `
-                const cardTemp = document.createElement('div');
-                cardTemp.className = 'card'
-                cardTemp.innerHTML = htmlTemp;
-                document.getElementById('cardWrapper').prepend(cardTemp)
+                const wrapper =  document.getElementById('contentWrapper')
+                wrapper.classList.add('fade')
+                document.getElementById('contentWrapper').innerHTML = htmlTemp
+                setTimeout(() => {
+                    wrapper.classList.remove('fade')
+                },200)
             })
+    }
+    const tweet = () => {
+        const url = `https://twitter.com/intent/tweet?text=${tweetContent}`
+        const win = window.open(url, '_blank')
+        win.focus()
     }
     
 </script>
