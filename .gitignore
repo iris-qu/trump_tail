@@ -1,18 +1,3 @@
-# OS or Editor folders
-.DS_Store
-.cache
-.project
-.settings
-.tmproj
-nbproject
-Thumbs.db
-
-# NPM packages folder.
-node_modules/
-
-# Brunch folder for temporary files.
-__pycache__
-ML_src/__pycache__
-
-# Brunch output folder.
+__pycache__/
+ML_src/__pycache__/
 ML_src/.env
