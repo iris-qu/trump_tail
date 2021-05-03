@@ -14,7 +14,7 @@ BASE_URL = "https://www.nytimes.com/sitemap"
 for year in range(2019, 2022):
     # eg. output https://www.nytimes.com/sitemap/2017
     YEAR_URL = BASE_URL + '/' + str(year)
-    for month in range(10, 13):
+    for month in range(1, 10):
         if month < 10:
             strMonth = '0' + str(month)
         else:
@@ -28,6 +28,7 @@ for year in range(2019, 2022):
             else:
                 strDate = str(date)
             DATE_URL = MONTH_URL + '/' + strDate + '/'
+            print(DATE_URL)
             try:
                 page = urlopen(DATE_URL)
             except Exception as e:
